@@ -2,10 +2,10 @@ package com.michelecossu.appbalance.service;
 
 import java.util.List;
 
-import com.michelecossu.appbalance.dto.CategoriaDto;
+import com.michelecossu.appbalance.dto.CategoryDto;
 
-public interface CategoriaService {
+public interface CategoryService {
 	
-	List<CategoriaDto> getAllCategorie();
+	List<CategoryDto> getAllCategories();
 
 }

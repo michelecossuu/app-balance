@@ -19,18 +19,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categoria")
-public class Categoria {
+@Table(name = "category")
+public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "name")
+	private String name;
 	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Operazione> operazioni = new ArrayList<>();
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
 
 }

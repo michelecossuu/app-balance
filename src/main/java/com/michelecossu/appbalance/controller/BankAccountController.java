@@ -8,23 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.michelecossu.appbalance.dto.ContoDto;
-import com.michelecossu.appbalance.service.ContoService;
+import com.michelecossu.appbalance.dto.BankAccountDto;
+import com.michelecossu.appbalance.service.BankAccountService;
 
 @RestController
-@RequestMapping("/conti")
+@RequestMapping("/bankAccounts")
 @CrossOrigin(origins = "http://localhost:8100")
-public class ContoController {
+public class BankAccountController {
 	
-	private final ContoService contoService;
+	private final BankAccountService contoService;
 	
-	public ContoController(ContoService contoService) {
+	public BankAccountController(BankAccountService contoService) {
 		this.contoService = contoService;
 	}
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ContoDto> getAllConti() {
-		return contoService.getAllConti();
+	public List<BankAccountDto> getAllBankAccounts() {
+		return contoService.getAllBankAccounts();
 	}
 
 }

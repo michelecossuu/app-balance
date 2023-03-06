@@ -2,10 +2,10 @@ package com.michelecossu.appbalance.service;
 
 import java.util.List;
 
-import com.michelecossu.appbalance.dto.ContoDto;
+import com.michelecossu.appbalance.dto.BankAccountDto;
 
-public interface ContoService {
+public interface BankAccountService {
 	
-	List<ContoDto> getAllConti();
+	List<BankAccountDto> getAllBankAccounts();
 
 }

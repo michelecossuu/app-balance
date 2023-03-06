@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContoDto {
+public class BankAccountDto {
 	
 	private long id;
-	private String nome;
-	private double saldo;
+	private String name;
+	private double balance;
 	
 }

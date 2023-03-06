@@ -5,36 +5,36 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.michelecossu.appbalance.dto.ContoDto;
-import com.michelecossu.appbalance.model.Conto;
-import com.michelecossu.appbalance.repository.ContoRepository;
-import com.michelecossu.appbalance.service.ContoService;
+import com.michelecossu.appbalance.dto.BankAccountDto;
+import com.michelecossu.appbalance.model.BankAccount;
+import com.michelecossu.appbalance.repository.BankAccountRepository;
+import com.michelecossu.appbalance.service.BankAccountService;
 
 @Service
-public class ContoServiceImpl implements ContoService{
+public class BankAccountServiceImpl implements BankAccountService{
 	
-	private final ContoRepository contoRepository;
+	private final BankAccountRepository bankAccountRepository;
 
-	public ContoServiceImpl(ContoRepository contoRepository) {
-		this.contoRepository = contoRepository;
+	public BankAccountServiceImpl(BankAccountRepository contoRepository) {
+		this.bankAccountRepository = contoRepository;
 	}
 
 	@Override
-	public List<ContoDto> getAllConti() {
-		List<Conto> listaConti = contoRepository.findAll();
-		List<ContoDto> listaContiDto = new ArrayList<>();
-		ContoDto contoDto = new ContoDto();
+	public List<BankAccountDto> getAllBankAccounts() {
+		List<BankAccount> bankAccountList = bankAccountRepository.findAll();
+		List<BankAccountDto> bankAccountListDto = new ArrayList<>();
+		BankAccountDto bankAccountDto = new BankAccountDto();
 		
-		if(!listaConti.isEmpty()) {
-			listaConti.forEach(conto -> {
-				contoDto.setId(conto.getId());
-				contoDto.setNome(conto.getNome());
-				contoDto.setSaldo(conto.getSaldo());
-				listaContiDto.add(contoDto);
+		if(!bankAccountList.isEmpty()) {
+			bankAccountList.forEach(bankAccount -> {
+				bankAccountDto.setId(bankAccount.getId());
+				bankAccountDto.setName(bankAccount.getName());
+				bankAccountDto.setBalance(bankAccount.getBalance());
+				bankAccountListDto.add(bankAccountDto);
 			});
 		}
 		
-		return listaContiDto;
+		return bankAccountListDto;
 	}
 
 }

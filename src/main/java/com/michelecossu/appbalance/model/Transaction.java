@@ -19,29 +19,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "operazione")
-public class Operazione {
+@Table(name = "transaction")
+public class Transaction {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "descrizione")
-	private String descrizione;
+	@Column(name = "description")
+	private String description;
 	
-	@Column(name = "data")
-	private Date data;
+	@Column(name = "date")
+	private Date date;
 	
-	@Column(name = "tipo_operazione")
-	private String tipoOperazione;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conto_id")
-	private Conto conto;
+	@Column(name = "transaction_type")
+	private String transactionType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id")
-	private Categoria categoria;
+    @JoinColumn(name = "bank_account_id")
+	private BankAccount bankAccount;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+	private Category category;
 
 }

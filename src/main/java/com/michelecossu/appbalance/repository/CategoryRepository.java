@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.michelecossu.appbalance.model.Categoria;
+import com.michelecossu.appbalance.model.Category;
 
-public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
+public interface CategoryRepository extends JpaRepository<Category, Long>{
 	
-	List<Categoria> findAll();
+	List<Category> findAll();
 
 }

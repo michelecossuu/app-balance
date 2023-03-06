@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.michelecossu.appbalance.model.Conto;
+import com.michelecossu.appbalance.model.BankAccount;
 
-public interface ContoRepository extends JpaRepository<Conto, Long>{
+public interface BankAccountRepository extends JpaRepository<BankAccount, Long>{
 	
-	List<Conto> findAll();
+	List<BankAccount> findAll();
 	
 }

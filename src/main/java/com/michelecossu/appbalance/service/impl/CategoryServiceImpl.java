@@ -5,35 +5,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.michelecossu.appbalance.dto.CategoriaDto;
-import com.michelecossu.appbalance.model.Categoria;
-import com.michelecossu.appbalance.repository.CategoriaRepository;
-import com.michelecossu.appbalance.service.CategoriaService;
+import com.michelecossu.appbalance.dto.CategoryDto;
+import com.michelecossu.appbalance.model.Category;
+import com.michelecossu.appbalance.repository.CategoryRepository;
+import com.michelecossu.appbalance.service.CategoryService;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class CategoryServiceImpl implements CategoryService {
 	
-	private final CategoriaRepository categoriaRepository;
+	private final CategoryRepository categoryRepository;
 
-	public CategoriaServiceImpl(CategoriaRepository categoriaRepository) {
-		this.categoriaRepository = categoriaRepository;
+	public CategoryServiceImpl(CategoryRepository categoriaRepository) {
+		this.categoryRepository = categoriaRepository;
 	}
 
 	@Override
-	public List<CategoriaDto> getAllCategorie() {
-		List<Categoria> listaCategorie = categoriaRepository.findAll();
-		List<CategoriaDto> listaCategoriaDto = new ArrayList<>();
-		CategoriaDto categoriaDto = new CategoriaDto();
+	public List<CategoryDto> getAllCategories() {
+		List<Category> categoryList = categoryRepository.findAll();
+		List<CategoryDto> categoryListDto = new ArrayList<>();
+		CategoryDto categoryDto = new CategoryDto();
 		
-		if(!listaCategorie.isEmpty()) {
-			listaCategorie.forEach(categoria -> {
-				categoriaDto.setId(categoria.getId());
-				categoriaDto.setNome(categoria.getNome());
-				listaCategoriaDto.add(categoriaDto);
+		if(!categoryList.isEmpty()) {
+			categoryList.forEach(category -> {
+				categoryDto.setId(category.getId());
+				categoryDto.setName(category.getName());
+				categoryListDto.add(categoryDto);
 			});
 		}
 		
-		return listaCategoriaDto;
+		return categoryListDto;
 	}
 
 }

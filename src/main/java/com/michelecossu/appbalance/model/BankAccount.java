@@ -19,21 +19,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "conto")
-public class Conto {
+@Table(name = "bank_account")
+public class BankAccount {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "id")
 	private long id;
 	
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "name")
+	private String name;
 	
-	@Column(name = "saldo")
-	private double saldo;
+	@Column(name = "balance")
+	private double balance;
 	
-	@OneToMany(mappedBy = "conto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Operazione> operazioni = new ArrayList<>();
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
 
 }

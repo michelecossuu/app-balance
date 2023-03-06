@@ -8,23 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.michelecossu.appbalance.dto.CategoryDto;
-import com.michelecossu.appbalance.service.CategoryService;
+import com.michelecossu.appbalance.dto.TransactionDto;
+import com.michelecossu.appbalance.service.TransactionService;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/transactions")
 @CrossOrigin(origins = "http://localhost:8100")
-public class CategoryController {
+public class TransactionController {
 	
-	private final CategoryService categoriaService;
+	private final TransactionService transactionService;
 
-	public CategoryController(CategoryService categoriaService) {
-		this.categoriaService = categoriaService;
+	public TransactionController(TransactionService transactionService) {
+		this.transactionService = transactionService;
 	}
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CategoryDto> getAllCategories() {
-		return categoriaService.getAllCategories();
+	public List<TransactionDto> getAllTransactions() {
+		return transactionService.getAllTransactions();
 	}
 
 }
