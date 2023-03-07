@@ -47,7 +47,7 @@ public class BankAccountController {
 	
 	@PostMapping(value = "/newBankAccount", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankAccountDto> saveBankAccount(@RequestBody BankAccountDto bankAccountDto) {
-		return ResponseEntity.ok(bankAccountService.saveBankAccount(bankAccountDto));
+		return ResponseEntity.ok(bankAccountService.saveBankAccountById(bankAccountDto));
 	}
 
 }

@@ -10,7 +10,7 @@ public interface BankAccountService {
 	
 	BankAccountDto getBankAccountById(long id);
 	
-	BankAccountDto saveBankAccount(BankAccountDto bankAccountDto);
+	BankAccountDto saveBankAccountById(BankAccountDto bankAccountDto);
 	
 	void deleteBankAccountById(long id);
 
