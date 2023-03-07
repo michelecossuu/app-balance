@@ -33,7 +33,7 @@ public class BankAccount {
 	@Column(name = "balance")
 	private double balance;
 	
-	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transaction> transactions = new ArrayList<>();
+//	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Transaction> transactions = new ArrayList<>();
 
 }

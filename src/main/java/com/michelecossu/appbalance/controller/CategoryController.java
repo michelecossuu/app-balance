@@ -26,5 +26,11 @@ public class CategoryController {
 	public List<CategoryDto> getAllCategories() {
 		return categoriaService.getAllCategories();
 	}
+	
+	//TODO saveCategory
+	
+	//TODO getCategoryById
+	
+	//TODO deleteCategoryById
 
 }

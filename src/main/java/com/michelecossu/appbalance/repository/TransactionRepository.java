@@ -9,5 +9,6 @@ import com.michelecossu.appbalance.model.Transaction;
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 	
 	List<Transaction> findAll();
+	//TODO findAll ordinata in base alla date desc
 
 }

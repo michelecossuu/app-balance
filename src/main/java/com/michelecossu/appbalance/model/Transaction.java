@@ -36,12 +36,12 @@ public class Transaction {
 	@Column(name = "transaction_type")
 	private String transactionType;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bank_account_id")
-	private BankAccount bankAccount;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-	private Category category;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "bank_account_id")
+//	private BankAccount bankAccount;
+//	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id")
+//	private Category category;
 
 }

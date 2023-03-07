@@ -35,8 +35,8 @@ public class TransactionServiceImpl implements TransactionService{
 				transactionDto.setDescription(transaction.getDescription());
 				transactionDto.setDate(transaction.getDate());
 				transactionDto.setTransactionType(transaction.getTransactionType());
-				transactionDto.setBankAccount(bankAccountToBankAccountDto(transaction.getBankAccount()));
-				transactionDto.setCategory(categoryToCategoryDto(transaction.getCategory()));				
+				//transactionDto.setBankAccount(bankAccountToBankAccountDto(transaction.getBankAccount()));
+				//transactionDto.setCategory(categoryToCategoryDto(transaction.getCategory()));				
 				transactionListDto.add(transactionDto);
 			});
 		}
