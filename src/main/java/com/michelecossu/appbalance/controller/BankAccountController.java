@@ -2,7 +2,6 @@ package com.michelecossu.appbalance.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.service.BankAccountService;
+import com.michelecossu.appbalance.utils.Common;
 
 @RestController
 @RequestMapping("/bankAccounts")
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = Common.BASE_URL)
 public class BankAccountController {
 	
 	private final BankAccountService bankAccountService;

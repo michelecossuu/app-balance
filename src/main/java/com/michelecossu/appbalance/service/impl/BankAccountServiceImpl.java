@@ -17,7 +17,6 @@ import com.michelecossu.appbalance.service.exception.BankAccountNotFound;
 public class BankAccountServiceImpl implements BankAccountService{
 	
 	private final BankAccountRepository bankAccountRepository;
-	
     private static final Logger logger = LogManager.getLogger(BankAccountServiceImpl.class);
 		
 	public BankAccountServiceImpl(BankAccountRepository contoRepository) {
@@ -48,9 +47,7 @@ public class BankAccountServiceImpl implements BankAccountService{
 		
 		if(bankAccount == null) throw new BankAccountNotFound("Il BankAccount con l'id " + id + " non esiste.");
 		
-		BankAccountDto bankAccountDto = bankAccountToBankAccountDto(bankAccount);
-		
-		return bankAccountDto;
+		return bankAccountToBankAccountDto(bankAccount);
 	}
 
 	@Override

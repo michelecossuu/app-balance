@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.dto.CategoryDto;
 import com.michelecossu.appbalance.service.CategoryService;
+import com.michelecossu.appbalance.utils.Common;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = Common.BASE_URL)
 public class CategoryController {
 	
 	private final CategoryService categoryService;

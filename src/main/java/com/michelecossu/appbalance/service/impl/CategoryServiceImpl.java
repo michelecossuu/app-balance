@@ -7,9 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.dto.CategoryDto;
-import com.michelecossu.appbalance.model.BankAccount;
 import com.michelecossu.appbalance.model.Category;
 import com.michelecossu.appbalance.repository.CategoryRepository;
 import com.michelecossu.appbalance.service.CategoryService;
@@ -20,7 +18,6 @@ import com.michelecossu.appbalance.service.exception.CategoryNotFound;
 public class CategoryServiceImpl implements CategoryService {
 	
 	private final CategoryRepository categoryRepository;
-	
     private static final Logger logger = LogManager.getLogger(CategoryServiceImpl.class);
 
 	public CategoryServiceImpl(CategoryRepository categoriaRepository) {
@@ -50,9 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		if(category == null) throw new CategoryNotFound("Il BankAccount con l'id " + id + " non esiste.");
 		
-		CategoryDto categoryDto = categoryToCategoryDto(category);
-		
-		return categoryDto;
+		return categoryToCategoryDto(category);
 	}
 
 	@Override
