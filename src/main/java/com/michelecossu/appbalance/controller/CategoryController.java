@@ -1,7 +1,5 @@
 package com.michelecossu.appbalance.controller;
 
-import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.michelecossu.appbalance.controller.response.ResponseCustom;
 import com.michelecossu.appbalance.dto.CategoryDto;
 import com.michelecossu.appbalance.service.CategoryService;
+import com.michelecossu.appbalance.service.exception.CategoryNotFoundException;
 import com.michelecossu.appbalance.utils.Costants;
 
 @RestController
 @RequestMapping("/categories")
 @CrossOrigin(origins = Costants.BASE_URL)
-public class CategoryController {
+public class CategoryController extends BaseController{
 	
 	private final CategoryService categoryService;
 
@@ -29,25 +29,48 @@ public class CategoryController {
 	}
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<CategoryDto>> getAllCategories() {
-		return ResponseEntity.ok(categoryService.getAllCategories());
+	public ResponseEntity<ResponseCustom> getAllCategories() {
+		return ResponseEntity.ok(buildSuccessResponse(categoryService.getAllCategories()));
 	}
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryDto> getCategoryById(@PathVariable long id) {
-		return ResponseEntity.ok(categoryService.getCategoryById(id));
-	}
+	public ResponseEntity<ResponseCustom> getCategoryById(@PathVariable long id) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			response = buildSuccessResponse(categoryService.getCategoryById(id));
+			return ResponseEntity.ok(response);
+		} catch(CategoryNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}	}
 	
 	@DeleteMapping("/deleteCategory/{id}")
-	public ResponseEntity<String> deleteCategoryById(@PathVariable long id) {
-		categoryService.deleteCategoryById(id);
-		String response = "La categoria con l'id " + id + " è stato cancellato correttamente.";
-		return ResponseEntity.ok(response);
+	public ResponseEntity<ResponseCustom> deleteCategoryById(@PathVariable long id) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			categoryService.deleteCategoryById(id);
+			response.setStatus("success");
+			response.setPayload("La Category con l'id " + id + " è stata cancellata correttamente.");
+			return ResponseEntity.ok(response);
+		} catch(CategoryNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}
 	}
 	
 	@PostMapping(value = "/newCategory", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto) {
-		return ResponseEntity.ok(categoryService.saveCategory(categoryDto));
+	public ResponseEntity<ResponseCustom> saveCategory(@RequestBody CategoryDto categoryDto) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			response = buildSuccessResponse(categoryService.saveCategory(categoryDto));
+			return ResponseEntity.ok(response);
+		} catch(CategoryNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}  
 	}
 
 }

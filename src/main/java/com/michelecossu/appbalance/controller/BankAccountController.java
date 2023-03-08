@@ -1,7 +1,5 @@
 package com.michelecossu.appbalance.controller;
 
-import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.michelecossu.appbalance.controller.response.ResponseCustom;
 import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.service.BankAccountService;
+import com.michelecossu.appbalance.service.exception.BankAccountNotFoundException;
 import com.michelecossu.appbalance.utils.Costants;
 
 @RestController
 @RequestMapping("/bankAccounts")
 @CrossOrigin(origins = Costants.BASE_URL)
-public class BankAccountController {
+public class BankAccountController extends BaseController {
 	
 	private final BankAccountService bankAccountService;
 	
@@ -29,25 +29,49 @@ public class BankAccountController {
 	}
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<BankAccountDto>> getAllBankAccounts() {
-		return ResponseEntity.ok(bankAccountService.getAllBankAccounts());
+	public ResponseEntity<ResponseCustom> getAllBankAccounts() {
+		return ResponseEntity.ok(buildSuccessResponse(bankAccountService.getAllBankAccounts()));
 	}
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<BankAccountDto> getBankAccountById(@PathVariable long id) {
-		return ResponseEntity.ok(bankAccountService.getBankAccountById(id));
+	public ResponseEntity<ResponseCustom> getBankAccountById(@PathVariable long id) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			response = buildSuccessResponse(bankAccountService.getBankAccountById(id));
+			return ResponseEntity.ok(response);
+		} catch(BankAccountNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}
 	}
 	
 	@DeleteMapping("/deleteBankAccount/{id}")
-	public ResponseEntity<String> deleteBankAccountById(@PathVariable long id) {
-		bankAccountService.deleteBankAccountById(id);
-		String response = "Il bank account con l'id " + id + " è stato cancellato correttamente.";
-		return ResponseEntity.ok(response);
+	public ResponseEntity<ResponseCustom> deleteBankAccountById(@PathVariable long id) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			bankAccountService.deleteBankAccountById(id);
+			response.setStatus("success");
+			response.setPayload("Il Bank Account con l'id " + id + " è stato cancellato correttamente.");
+			return ResponseEntity.ok(response);
+		} catch(BankAccountNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}
 	}
 	
 	@PostMapping(value = "/newBankAccount", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<BankAccountDto> saveBankAccount(@RequestBody BankAccountDto bankAccountDto) {
-		return ResponseEntity.ok(bankAccountService.saveBankAccount(bankAccountDto));
+	public ResponseEntity<ResponseCustom> saveBankAccount(@RequestBody BankAccountDto bankAccountDto) {
+		ResponseCustom response = new ResponseCustom<>();
+		
+		try {
+			response = buildSuccessResponse(bankAccountService.saveBankAccount(bankAccountDto));
+			return ResponseEntity.ok(response);
+		} catch(BankAccountNotFoundException e) {
+			response = buildErrorResponse(400, e.getMessage());
+			return ResponseEntity.ok(response);
+		}  
 	}
 
 }

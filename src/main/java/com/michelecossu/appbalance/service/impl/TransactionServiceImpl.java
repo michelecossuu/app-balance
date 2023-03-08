@@ -13,6 +13,8 @@ import com.michelecossu.appbalance.repository.BankAccountRepository;
 import com.michelecossu.appbalance.repository.CategoryRepository;
 import com.michelecossu.appbalance.repository.TransactionRepository;
 import com.michelecossu.appbalance.service.TransactionService;
+import com.michelecossu.appbalance.service.exception.BankAccountNotFoundException;
+import com.michelecossu.appbalance.service.exception.CategoryNotFoundException;
 import com.michelecossu.appbalance.service.exception.TransactionNotFoundException;
 import com.michelecossu.appbalance.utils.ModelMapper;
 
@@ -64,12 +66,22 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public TransactionDto saveTransaction(TransactionDto transactionDto) {
 		
-		if(transactionDto == null) throw new TransactionNotFoundException("La Transaction è nulla.");
-		if(transactionDto.getBankAccount() == null) throw new TransactionNotFoundException("Il BankAccount è nullo.");
-		if(transactionDto.getCategory() == null) throw new TransactionNotFoundException("La Category non è nulla.");
+		if(transactionDto == null) 
+			throw new TransactionNotFoundException("Il transactionDto passato come parametro è nullo.");
+		if(transactionDto.getBankAccount() == null) 
+			throw new TransactionNotFoundException("Il BankAccount dentro il transactionDto è nullo.");
+		if(transactionDto.getCategory() == null) 
+			throw new TransactionNotFoundException("La Category non è nulla.");
 		
 		BankAccount bankAccount = bankAccountRepository.findById(transactionDto.getBankAccount().getId());
+		if(bankAccount == null) 
+			throw new BankAccountNotFoundException("Il BankAccount con l'id " + transactionDto.getBankAccount().getId() + 
+					" non esiste.");
+		
 		Category category = categoryRepository.findById(transactionDto.getCategory().getId());
+		if(category == null) 
+			throw new CategoryNotFoundException("La Category con l'id " + transactionDto.getCategory().getId() + 
+					" non esiste.");
 		
 		Transaction transaction = transactionRepository.save(mapper.transactionDtoToTransaction(transactionDto, bankAccount, category));
 		transactionDto.setId(transaction.getId());
