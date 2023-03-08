@@ -11,17 +11,19 @@ import com.michelecossu.appbalance.dto.CategoryDto;
 import com.michelecossu.appbalance.model.Category;
 import com.michelecossu.appbalance.repository.CategoryRepository;
 import com.michelecossu.appbalance.service.CategoryService;
-import com.michelecossu.appbalance.service.exception.BankAccountNotFound;
-import com.michelecossu.appbalance.service.exception.CategoryNotFound;
+import com.michelecossu.appbalance.service.exception.CategoryNotFoundException;
+import com.michelecossu.appbalance.utils.ModelMapper;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	
 	private final CategoryRepository categoryRepository;
+	private ModelMapper mapper;
     private static final Logger logger = LogManager.getLogger(CategoryServiceImpl.class);
 
-	public CategoryServiceImpl(CategoryRepository categoriaRepository) {
+	public CategoryServiceImpl(CategoryRepository categoriaRepository, ModelMapper mapper) {
 		this.categoryRepository = categoriaRepository;
+		this.mapper = mapper;
 	}
 
 	@Override
@@ -45,18 +47,18 @@ public class CategoryServiceImpl implements CategoryService {
 	public CategoryDto getCategoryById(long id) {
 		Category category = categoryRepository.findById(id);
 		
-		if(category == null) throw new CategoryNotFound("Il BankAccount con l'id " + id + " non esiste.");
+		if(category == null) throw new CategoryNotFoundException("Il BankAccount con l'id " + id + " non esiste.");
 		
-		return categoryToCategoryDto(category);
+		return mapper.categoryToCategoryDto(category);
 	}
 
 	@Override
 	public CategoryDto saveCategory(CategoryDto categoryDto) {
 		logger.info("saveBankAccount - inizio metodo");
 		
-		if(categoryDto == null) throw new CategoryNotFound("Il BankAccountDto non è corretto.");
+		if(categoryDto == null) throw new CategoryNotFoundException("Il BankAccountDto non è corretto.");
 		
-		Category category = categoryRepository.save(categoryDtoToCategory(categoryDto));
+		Category category = categoryRepository.save(mapper.categoryDtoToCategory(categoryDto));
 		categoryDto.setId(category.getId());
 				
 		logger.info("saveBankAccount - fine metodo");
@@ -68,32 +70,9 @@ public class CategoryServiceImpl implements CategoryService {
 	public void deleteCategoryById(long id) {
 		Category category = categoryRepository.findById(id);
 
-		if(category == null) throw new CategoryNotFound("Il BankAccount con l'id " + id + " non esiste.");
+		if(category == null) throw new CategoryNotFoundException("Il BankAccount con l'id " + id + " non esiste.");
 
 		categoryRepository.deleteById(id);		
-	}
-	
-	private CategoryDto categoryToCategoryDto(Category category) {
-		CategoryDto categoryDto = new CategoryDto();
-
-		categoryDto.setId(category.getId());
-		categoryDto.setName(category.getName());
-		
-		return categoryDto;
-	}
-	
-	private Category categoryDtoToCategory(CategoryDto categoryDto) {
-		Category category = new Category();
-		
-		logger.info("bankAccountDtoToBankAccount - inizio metodo");
-		
-		if(categoryDto == null) throw new BankAccountNotFound("Il BankAccountDto non esiste.");
-			
-		category.setName(categoryDto.getName());
-		
-		logger.info("bankAccountDtoToBankAccount - fine metodo");
-		
-		return category;
 	}
 
 }

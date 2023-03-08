@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.service.BankAccountService;
-import com.michelecossu.appbalance.utils.Common;
+import com.michelecossu.appbalance.utils.Costants;
 
 @RestController
 @RequestMapping("/bankAccounts")
-@CrossOrigin(origins = Common.BASE_URL)
+@CrossOrigin(origins = Costants.BASE_URL)
 public class BankAccountController {
 	
 	private final BankAccountService bankAccountService;
@@ -47,7 +47,7 @@ public class BankAccountController {
 	
 	@PostMapping(value = "/newBankAccount", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankAccountDto> saveBankAccount(@RequestBody BankAccountDto bankAccountDto) {
-		return ResponseEntity.ok(bankAccountService.saveBankAccountById(bankAccountDto));
+		return ResponseEntity.ok(bankAccountService.saveBankAccount(bankAccountDto));
 	}
 
 }

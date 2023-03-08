@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.michelecossu.appbalance.dto.CategoryDto;
 import com.michelecossu.appbalance.service.CategoryService;
-import com.michelecossu.appbalance.utils.Common;
+import com.michelecossu.appbalance.utils.Costants;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin(origins = Common.BASE_URL)
+@CrossOrigin(origins = Costants.BASE_URL)
 public class CategoryController {
 	
 	private final CategoryService categoryService;

@@ -1,10 +1,10 @@
 package com.michelecossu.appbalance.service.exception;
 
-public class CategoryNotFound extends RuntimeException {
+public class CategoryNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 
-	public CategoryNotFound(String message) {
+	public CategoryNotFoundException(String message) {
 		super(message);
 	}
 

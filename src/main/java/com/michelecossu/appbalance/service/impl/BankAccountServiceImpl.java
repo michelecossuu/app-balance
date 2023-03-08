@@ -11,16 +11,19 @@ import com.michelecossu.appbalance.dto.BankAccountDto;
 import com.michelecossu.appbalance.model.BankAccount;
 import com.michelecossu.appbalance.repository.BankAccountRepository;
 import com.michelecossu.appbalance.service.BankAccountService;
-import com.michelecossu.appbalance.service.exception.BankAccountNotFound;
+import com.michelecossu.appbalance.service.exception.BankAccountNotFoundException;
+import com.michelecossu.appbalance.utils.ModelMapper;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService{
 	
 	private final BankAccountRepository bankAccountRepository;
     private static final Logger logger = LogManager.getLogger(BankAccountServiceImpl.class);
+    private ModelMapper mapper;
 		
-	public BankAccountServiceImpl(BankAccountRepository contoRepository) {
+	public BankAccountServiceImpl(BankAccountRepository contoRepository, ModelMapper mapper) {
 		this.bankAccountRepository = contoRepository;
+		this.mapper = mapper;
 	}
 
 	@Override
@@ -45,19 +48,19 @@ public class BankAccountServiceImpl implements BankAccountService{
 	public BankAccountDto getBankAccountById(long id) {
 		BankAccount bankAccount = bankAccountRepository.findById(id);
 		
-		if(bankAccount == null) throw new BankAccountNotFound("Il BankAccount con l'id " + id + " non esiste.");
+		if(bankAccount == null) throw new BankAccountNotFoundException("Il BankAccount con l'id " + id + " non esiste.");
 		
-		return bankAccountToBankAccountDto(bankAccount);
+		return mapper.bankAccountToBankAccountDto(bankAccount);
 	}
 
 	@Override
-	public BankAccountDto saveBankAccountById(BankAccountDto bankAccountDto) {
+	public BankAccountDto saveBankAccount(BankAccountDto bankAccountDto) {
 		
 		logger.info("saveBankAccount - inizio metodo");
 		
-		if(bankAccountDto == null) throw new BankAccountNotFound("Il BankAccountDto non è corretto.");
+		if(bankAccountDto == null) throw new BankAccountNotFoundException("Il BankAccountDto non è corretto.");
 		
-		BankAccount bankAccount = bankAccountRepository.save(bankAccountDtoToBankAccount(bankAccountDto));
+		BankAccount bankAccount = bankAccountRepository.save(mapper.bankAccountDtoToBankAccount(bankAccountDto));
 		bankAccountDto.setId(bankAccount.getId());
 				
 		logger.info("saveBankAccount - fine metodo");
@@ -69,34 +72,9 @@ public class BankAccountServiceImpl implements BankAccountService{
 	public void deleteBankAccountById(long id) {
 		BankAccount bankAccount = bankAccountRepository.findById(id);
 		
-		if(bankAccount == null) throw new BankAccountNotFound("Il BankAccount con l'id " + id + " non esiste.");
+		if(bankAccount == null) throw new BankAccountNotFoundException("Il BankAccount con l'id " + id + " non esiste.");
 		
 		bankAccountRepository.deleteById(id);
-	}
-	
-	private BankAccountDto bankAccountToBankAccountDto(BankAccount bankAccount) {
-		BankAccountDto bankAccountDto = new BankAccountDto();
-
-		bankAccountDto.setId(bankAccount.getId());
-		bankAccountDto.setName(bankAccount.getName());
-		bankAccountDto.setBalance(bankAccount.getBalance());
-		
-		return bankAccountDto;
-	}
-	
-	private BankAccount bankAccountDtoToBankAccount(BankAccountDto bankAccountDto) {
-		BankAccount bankAccount = new BankAccount();
-		
-		logger.info("bankAccountDtoToBankAccount - inizio metodo");
-		
-		if(bankAccountDto == null) throw new BankAccountNotFound("Il BankAccountDto non esiste.");
-			
-		bankAccount.setName(bankAccountDto.getName());
-		bankAccount.setBalance(bankAccountDto.getBalance());
-		
-		logger.info("bankAccountDtoToBankAccount - fine metodo");
-		
-		return bankAccount;
 	}
 
 }

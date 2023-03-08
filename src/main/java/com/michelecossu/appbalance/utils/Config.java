@@ -7,8 +7,13 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 	
 	@Bean
-    public Common commons() {
-        return new Common();
+    public Costants costants() {
+        return new Costants();
+    }
+	
+	@Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }
