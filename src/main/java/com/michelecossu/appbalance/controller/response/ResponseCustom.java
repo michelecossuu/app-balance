@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ResponseCustom<T> {
 	
 	private String status;
-    private Object Payload;
+    private Object payload;
     private Integer errorCode;
     
     @JsonProperty("erroreDes")
