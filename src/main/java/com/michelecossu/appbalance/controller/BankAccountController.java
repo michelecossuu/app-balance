@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.michelecossu.appbalance.controller.response.ResponseCustom;
@@ -19,7 +20,7 @@ import com.michelecossu.appbalance.utils.Costants;
 
 @RestController
 @RequestMapping("/bankAccounts")
-@CrossOrigin(origins = Costants.BASE_URL)
+@CrossOrigin(origins = Costants.BASE_URL, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE}, allowedHeaders = "*")
 public class BankAccountController extends BaseController {
 	
 	private final BankAccountService bankAccountService;
